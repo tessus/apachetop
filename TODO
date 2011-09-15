@@ -1,0 +1,26 @@
+ApacheTop TODO & Wishlist
+
+Before next release:
+* FAM error checking / file recreation / deletion
+  * watch for a file being recreated and reopen it
+
+
+Short term:
+* served content footprint; add up size of each unique object in the circle
+  and display it; nice little indicator of how much unique webcontent is
+  being used
+* per object stats; breakdown of return codes for a single object
+* improve url-chopping (/browse/something -> /browse) to be definable in
+  realtime; involves storing entire url, not munging at storetime, and then
+  doing munging in display routine.
+* add a new display summarising hits/bytes per logfile
+* more munging; chop off first parts of hosts, so 
+    p11112-adsah09honb5-acca.tokyo.ocn.ne.jp  becomes
+    .tokyo.ocn.ne.jp   then   .ocn.ne.jp   then   .ne.jp
+
+Medium term:
+* remove dependencies on readline and (n)curses
+
+Long term:
+* Apache module possibility, rather than tailing a logfile
+* more logformats; custom atop format (include time taken for request etc)?

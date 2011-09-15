@@ -1,0 +1,26 @@
+ApacheTop NEWS - Recent major changes
+
+v0.12.5
+ * Threading is no longer used. Everything now runs in a single thread.
+
+v0.12
+ * Add FAM support; event notification for Linux etc.
+ * Add adns support; ApacheTop can now resolve your IPs into Hosts.
+    Please give me feedback on this; it's not very widely tested.
+    You'll need to use the cmdline switch -r to enable it.
+ * Add return code breakdown for each item. Press 'n' while running.
+ * Header now converts to GB/MB/KB/Bytes where appropriate.
+ * TAKE NOTE! Commandline option changes:
+     -r for refresh delay has changed to -d
+     -r has been re-assigned to enable resolving of hosts/ips.
+
+v0.11
+ * Add Filters, with optional regexp (pcre) support. Press 'f' while running.
+ * Add configure option --with-logfile.
+
+v0.10
+ * Fix intermittent crash bug when there is nothing to display.
+
+
+
+Stuff prior to v0.10 can be found in the ChangeLog file..

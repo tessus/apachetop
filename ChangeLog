@@ -1,0 +1,284 @@
+ApacheTop ChangeLog
+
+v0.12.6 (27th October, 2005)
+ * fixed security issue which described at CVE-2005-2660 
+
+v0.12.5 (27th November, 2004)
+20041126
+ * change src/Makefile.am to install apachetop into bin, not sbin
+ * add NetBSD compatibility hack for kqueue; their opaque datafield
+   is an intptr_t (why?)
+
+20040915
+ * add attron back into configure.ac - not sure when that got removed
+ * change timeout delay between log checks to a constant 1/10th of a second
+ * get rid of all threading code. It was never really necessary; only ever
+   implemented because the main-loop delay was too long. Now it runs at
+   least 10 times a second.
+
+20040725
+ * incorporate gcc 3.4 building compatibility patch
+   from Pascal Terjan <pterjan@linuxfr.org>
+
+
+v0.12 (21st May, 2004)
+20040508
+ * finish up adns resolving; now host and/or ip are displayed as best
+   as possible; if one is not available it is displayed as ... while
+   being resolved.
+ * TAKE NOTE!
+     commandline option -r has changed to -d
+     -r has been reassigned to enable resolving of hosts/ips
+
+20040505
+ * use kqueue and fam facilities for passing opaque user data back when
+   an event occurs, allowing the removal of the ift struct (which sucked)
+
+20040504
+ * add runtime option key 'n' to toggle number columns between hits/bytes
+   and return code breakdowns for each item.
+ * expand sorting options so it's possible to sort by return codes as well
+   as hits/bytes. Pressing 's' brings up a different menu if you're viewing
+   return code breakdown.
+
+20040416
+ * add return code breakdown for each item in the top-list
+
+20040308
+ * improve header to display GB/MB/KB/Bytes in all appropriate fields
+
+20040303
+ * add adns support to resolve IPs into Hosts; if HostnameLookups is Off in
+   your httpd.conf, ApacheTop will now look up IPs for you. Created
+   --with-adns, like pcre/fam.
+
+20040301
+ * remove --enable-pcre; have configure always check for it and just warn if
+   it can't be found. Specify --with-pcre to point it at the right place.
+ * call realpath() on supplied filenames for sanity
+ * add File Alteration Module (FAM) monitoring code (for Linux/IRIX mostly)
+   Use --with-fam to point it at the right place, like pcre.
+
+
+
+v0.11 (25th February, 2004)
+20040224
+ * acknowledge & as starting a query string as well as ?
+
+20040219
+ * clean up configure.ac, remove unused function checks
+ * add --with-libraries and --with-includes to ./configure to provide
+   hints about where to look other than standard places
+
+20040218
+ * add --enable-pcre and --with-pcre=<path> to ./configure; providing
+   these enables regular expression filtering
+ * add new filters submenu (press f)
+ * add --with-logfile=<file> to ./configure; now you can override the
+   default log position without editing the source
+
+20040216
+ * inline hashing functions for greater efficiency
+ * replace localtime & strftime calls with a bit of maths in display_header()
+
+20040204
+ * add largefile checks into configure.ac
+
+20040119
+ * change nanosleep to usleep; I think this makes more sense..
+   Solaris 2.6 doesn't have nanosleep, and it seems overkill
+ * change configure.ac check for wattr_on to attron (fix Solaris compile issue)
+
+
+v0.10 (14th January, 2004)
+20040104
+ * remove old useless configure.ac stuff
+ * fix crash bug when ApacheTop has nothing to display
+
+
+v0.9 (22nd December, 2003)
+20031222
+ * don't call endwin() in a signal handler; set a flag and get the main
+   loop to do it. Fixes intermittent segfault when Ctrl-C'ing to exit.
+ * change instances of mvprintw() to mvaddstr() where printf features
+   were unused anyway; should give curses an easier time.
+ * add runtime help display; press s or ?
+
+20031221
+ * rework runtime options to make use of "submenus"
+ * add facility for removing detailed-display sections (remove Referrers
+   from a URL detailed display etc); press t during runtime for submenu
+ * move sort runtime keys into their own submenu; press s for this
+
+20031218
+ * revamp pthreads detection in configure.ac. It works now, I swear.
+
+20031212
+ * code cleanups in display.cc
+ * new display mode; press Right-Arrow to show statistics specific to the
+   currently highlighted item. If you are highlighting a URL, host and
+   referrer statistics for that URL will be shown. Press Left-Arrow to exit
+   this display mode.
+
+
+v0.8.1 (28th November, 2003)
+20031128
+ * fix for running ApacheTop with no parameters
+
+
+v0.8 (18th November, 2003)
+20031115
+ * we now reopen an input file if the inode changes; this catches deletes
+   and renames. ApacheTop will wait for the file to be recreated and reopen.
+
+20031113
+ * remove mod_log_spread code; I'm not happy with including this since I
+   have no idea how it works, no idea how the new filecode breaks it, and
+   I haven't had chance to test it. This will be re-introduced when I can
+   test it
+ * remove option -t; all logs are assumed to be common or combined format
+ * adapt internally to facilitate reading from more than one log at once
+
+20031102
+ * add more kqueue flags to watch for file deletion/renaming
+
+20031027
+ * fiddle with configure.ac so it doesn't require autoconf 2.57
+
+20031014
+ * added check for stdarg.h to configure.ac; fixes Solaris build issue
+ * fix configure.ac check for pthread library
+
+
+v0.7 (14th October, 2003)
+20031008
+ * add thread for monitoring keypresses; if pthreads can be used, this will
+   make ApacheTop feel more responsive. Fall back on old behaviour if not.
+
+20031006
+ * simplify log-fetching routine; no need to lseek() around the file;
+   we just wait (or kqueue) then attempt to read().
+
+20031005
+ * wrap header includes in #if/#endif; we should now build on ancient
+   standards-breaking systems which don't have some headers.
+ * efficiency tweaks to hashing functions and hash class
+ * use the return value of ohtbl->insert where possible; saves a call to
+   lookup and thus another hash in some cases, which cuts down on CPU time.
+
+
+v0.6 (5th October, 2003)
+20031004
+ * change from select() to nanosleep() for sleeping. Not only is this a more
+   suitable function, it also stops ApacheTop on Linux eating all the CPU,
+   since select() was zero'ing a structure after it's first call. doh.
+ * start distributing with autoconf. Disregard previous build instructions;
+   you now do the more conventional cd apachetop-X.X/ && ./configure && make
+ * add kqueue() support for checking the logfile for updates; autoconf
+   enables this automatically if your architecture supports it.
+
+20031003
+ * drop qsort() in favour of shellsort() in display.cc; this has the
+   advantage of knowing the data it's sorting, thus doesn't have to call a
+   comparison sub-function millions of times. This should lower ApacheTop's
+   CPU usage a lot.
+ * add mod_log_spread support via a patch from Theo Schlossnagle; I haven't
+   been able to test this yet.
+
+
+v0.5 (2nd October, 2003)
+20031002
+ * make the timed circle store slightly more information than requested, so
+   that we're guaranteed to have the requested number of seconds.
+
+20031001
+ * add option -r to specify refresh delay interval in seconds.
+ * add runtime key 'p' to pause/unpause the updating display. Stats are
+   still collected, but the screen is temporarily frozen.
+
+20030930
+ * experimental try-to-stop-it-crashing changes; a few cases of possible
+   memory trashing were fixed in hash and map classes.
+ * fill in dummy "Unknown" value for referrer if a common log is used.
+   (fixes crash if user switches to REFERRERs when there aren't any)
+ * change default refresh delay to 5 seconds.
+
+
+v0.4 (29th September, 2003)
+20030929
+ * add a new display mode; REFERRERs.
+   Press 'd' to cycle through URLs, IPs, and now REFERRERs.
+ * add option -p to preserve http:// (or whatever protocol) at start of
+   referrer string. By default it is cut out to save space onscreen.
+
+20030928
+ * remove -lreadline and associated code; hence dropping support for
+   altering delay frequency during runtime. This improves portability,
+   notably to Solaris. Intending to replace readline with own code.
+ * -L changed to -l; no real reason to use uppercase, not sure why I did.
+
+20030927
+ * add -s option to keep a given number of URL path segments only. For
+   example, -s 2 converts "/images/media/small/x.jpg" into "/images/media/"
+   This is rather experimental, so I'd appreciate feedback.
+ * remove floating points from table information when the numbers get big
+   enough; so we can display bigger numbers in the same table space.
+ * internally record referrers from log if they're available.
+ * add a visual marker (* just to left of URL/IP), movable by Up/Dn to stats
+   table; will be used to provide more information on the selected item.
+   This doesn't yet do anything further, however.
+
+
+v0.3 (26th September, 2003)
+20030926
+ * add framework for reading more logformats; combined & atop (not done yet)
+ * add -L option to lowercase all URLs for display (means /FOO and /foo are
+   considered the same and accumulate the same hits/bytes counters)
+ * add -q option to keep querystrings on URLs (default is to remove)
+ * rejigged -h and -t options to be -H and -T; logtype now uses -t
+
+20030925
+ * simplify circle functions by passing structs around, not lots of
+   individual ints; cuts down on memory copying too (= faster).
+ * display bytecount in header in MB when appropriate.
+ * adapt to resizes of the term; display more results if we can, and use
+   more of the term's width if there's an excess.
+
+20030924
+ * log.[cc|h] added; Log parsing class. Obsoletes logsplit() in apachetop.cc.
+   Currently only has common logformat parser, but is easily extendable to do
+   combined (and planning on a custom format)
+ * don't display NaN when there's no stats; display zeroes.
+
+
+v0.2 (24th September, 2003)
+20030923
+ * timed_circle.cc operational improvements to return more accurate
+   information about what's really going on with idle-ish servers.
+ * only allow one of -t and -h args to be specified.
+
+20030922
+ * timed_circle.cc fixes for potentially overrunning arrays, with the help
+   of Purify on Solaris. This should fix the segmentation faults a few people
+   have been randomly seeing.
+
+
+v0.1 (22nd September, 2003)
+20030922
+ * README (some brief docs) and CHANGES added :)
+ * display restructured a little; better use made of floating points
+
+20030921
+ * circle.[cc|h] moved to hits_circle.*; circle.h added as a virtual class.
+   In English, this means you can choose which circle mode to use at startup
+   time; one limited by time or one by hits.
+
+20030920
+ * timed_circle.cc added; provide detailed statistics for server requests in
+   the last $x seconds. The alternative is circle.cc, which similarly
+   remembers the last $x requests, regardless of age.
+
+
+v0.0 (19th September, 2003)
+20030919
+ * initial freshmeat release
