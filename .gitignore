@@ -1,0 +1,10 @@
+*Makefile
+*.o
+src/.deps/
+stamp-h1
+*~
+autom4te.cache/
+src/apachetop
+config.h
+config.log
+config.status
