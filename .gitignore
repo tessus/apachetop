@@ -8,3 +8,6 @@ src/apachetop
 config.h
 config.log
 config.status
+*.in
+configure
+aclocal.m4
