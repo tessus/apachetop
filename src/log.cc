@@ -137,7 +137,11 @@ int CommonLogParser::parse(char *logline, struct logbits *b)
 
 	b->time = now; /* be lazy */
 
-	bufcp += 29; /* from dayofmonth to first char of method */
+	/* find the end of the date */
+	if (!(bufcp = strchr(bufcp, ']')))
+		return -1;
+
+	bufcp += 3; /* from end of date to first char of method */
 
 	/* URL. processURL() will update bufcp to point at the end so we can
 	 * continue processing from there */
