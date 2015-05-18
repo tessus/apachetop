@@ -248,7 +248,7 @@ struct gstat {
 
 /* this can be overridden from config.h via ./configure --with-logfile .. */
 #ifndef DEFAULT_LOGFILE
-# define DEFAULT_LOGFILE "/var/httpd/apache_log"
+# define DEFAULT_LOGFILE "/var/log/access_log"
 #endif
 #define DEFAULT_CIRCLE_SIZE 30
 #define DEFAULT_CIRCLE_MODE TIMED_CIRCLE
