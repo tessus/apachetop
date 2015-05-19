@@ -1,13 +1,13 @@
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT(apachetop, 0.12.6, apachetop@webta.org)
+AC_INIT(apachetop, 0.12.7, no@support.com)
 AC_CONFIG_SRCDIR(src/apachetop.cc)
 
 AC_CONFIG_AUX_DIR(config)
 #AC_CONFIG_MACRO_DIR(m4) # 2.58
 
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(apachetop, 0.12.6) # 2.53 only?
+AM_INIT_AUTOMAKE(apachetop, 0.12.7) # 2.53 only?
 
 # Add non-standard directories to the include path
 AC_ARG_WITH(libraries,
@@ -34,7 +34,8 @@ AC_LANG_CPLUSPLUS
 # Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS([arpa/inet.h netdb.h netinet/in.h \
-		string.h strings.h sys/socket.h time.h sys/time.h])
+		string.h strings.h sys/socket.h time.h sys/time.h \
+		limits.h sys/param.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 #AC_HEADER_STDBOOL # not in 2.53?

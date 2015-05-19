@@ -89,8 +89,13 @@
 #define getMIN(a,b) (a < b ? a : b)
 #define getMAX(a,b) (a > b ? a : b)
 
+#ifdef HAVE_SYS_PARAM_H
+# include <sys/param.h>
+#endif
+
+/* last resort */
 #ifndef MAXPATHLEN
-# define MAXPATHLEN 128
+# define MAXPATHLEN 1024
 #endif
 
 /* upon startup, each input file is put into an element of this array,
