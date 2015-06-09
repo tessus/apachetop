@@ -1,13 +1,13 @@
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT(apachetop, 0.12.7, no@support.com)
+AC_INIT([apachetop],[0.12.7],[https://github.com/tessus/apachetop/issues])
 AC_CONFIG_SRCDIR(src/apachetop.cc)
 
 AC_CONFIG_AUX_DIR(config)
 #AC_CONFIG_MACRO_DIR(m4) # 2.58
 
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(apachetop, 0.12.7) # 2.53 only?
+AM_INIT_AUTOMAKE
 
 # Add non-standard directories to the include path
 AC_ARG_WITH(libraries,
@@ -29,7 +29,7 @@ AC_ARG_WITH(includes,
 #AC_PROG_CC
 #AC_PROG_CPP
 AC_PROG_CXX
-AC_LANG_CPLUSPLUS
+AC_LANG([C++])
 
 # Checks for header files.
 AC_HEADER_STDC
@@ -133,4 +133,5 @@ AC_SEARCH_LIBS([readline], [readline],
 #CXXFLAGS="$CXXFLAGS $CPPFLAGS"
 AC_SUBST(CXXFLAGS)
 
-AC_OUTPUT(Makefile man/Makefile src/Makefile config/Makefile)
+AC_CONFIG_FILES([Makefile man/Makefile src/Makefile config/Makefile])
+AC_OUTPUT
