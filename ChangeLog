@@ -1,10 +1,22 @@
 ApacheTop ChangeLog
 
+v0.15.6 (10th June, 2015)
+ * allow other time/date formats in Apache log
+ * use sys/param.h for MAXPATHLEN
+ * fix deprecated auto tools macros
+ * fix compiler warnings
+ * use silent compile rules
+ * updated man page
+ * change version to 0.YY.M of new release
+
+
 v0.12.6 (27th October, 2005)
  * fixed security issue which described at CVE-2005-2660 
 
+
 v0.12.5 (27th November, 2004)
 20041126
+ * Threading is no longer used. Everything now runs in a single thread.
  * change src/Makefile.am to install apachetop into bin, not sbin
  * add NetBSD compatibility hack for kqueue; their opaque datafield
    is an intptr_t (why?)
@@ -22,6 +34,16 @@ v0.12.5 (27th November, 2004)
 
 
 v0.12 (21st May, 2004)
+ * Add FAM support; event notification for Linux etc.
+ * Add adns support; ApacheTop can now resolve your IPs into Hosts.
+    Please give me feedback on this; it's not very widely tested.
+    You'll need to use the cmdline switch -r to enable it.
+ * Add return code breakdown for each item. Press 'n' while running.
+ * Header now converts to GB/MB/KB/Bytes where appropriate.
+ * TAKE NOTE! Commandline option changes:
+     -r for refresh delay has changed to -d
+     -r has been re-assigned to enable resolving of hosts/ips.
+
 20040508
  * finish up adns resolving; now host and/or ip are displayed as best
    as possible; if one is not available it is displayed as ... while
@@ -58,7 +80,6 @@ v0.12 (21st May, 2004)
  * call realpath() on supplied filenames for sanity
  * add File Alteration Module (FAM) monitoring code (for Linux/IRIX mostly)
    Use --with-fam to point it at the right place, like pcre.
-
 
 
 v0.11 (25th February, 2004)
