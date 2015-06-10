@@ -45,7 +45,7 @@ void shellsort(struct itemlist *items, unsigned int size, int sorttype);
 
 float readableNum(double num, char *suffix);
 
-void display_submenu_banner(char *title, int title_len, char *banner);
+void display_submenu_banner(const char *title, int title_len, const char *banner);
 void clear_submenu_banner(void);
 
 void display_help(void);

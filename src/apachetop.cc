@@ -397,7 +397,7 @@ int main(int argc, char *argv[])
 
 		/* 1/10th of a second */
 		tv.tv_sec = 0; tv.tv_usec = 100000;
-		select(NULL, NULL, NULL, NULL, &tv);
+		select(0, NULL, NULL, NULL, &tv);
 
 		/* check every file */
 		for (x = 0 ; x < MAX_INPUT_FILES ; ++x)
@@ -950,7 +950,7 @@ int read_key(int ch) /* {{{ */
 } /* }}} */
 
 
-int new_file(char *filename, bool do_seek_to_end) /* {{{ */
+int new_file(const char *filename, bool do_seek_to_end) /* {{{ */
 /* opens the filename supplied,
  * and fills in the struct input passed by reference
 */

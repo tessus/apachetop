@@ -167,7 +167,7 @@ int CommonLogParser::parse(char *logline, struct logbits *b)
 		/* nothing left, its common */
 		
 		/* fill in a dummy value for referrer map */
-		b->ref_pos = rm->insert("Unknown");
+		b->ref_pos = rm->insert((char *)"Unknown");
 		return 0;
 	}
 

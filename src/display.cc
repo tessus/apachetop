@@ -1051,7 +1051,7 @@ float readableNum(double num, char *suffix) /* {{{ */
 	return (float)num;
 } /* }}} */
 
-void display_submenu_banner(char *title, int title_len, char *banner)
+void display_submenu_banner(const char *title, int title_len, const char *banner)
 {
 	attron(A_REVERSE);
 	mvaddstr(SUBMENU_LINE_NUMBER, 1, title);

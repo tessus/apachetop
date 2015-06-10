@@ -275,7 +275,7 @@ int read_key(int ch);
 
 #define SEEK_TO_END true
 #define NO_SEEK_TO_END false
-int new_file(char *filename, bool do_seek_to_end);
+int new_file(const char *filename, bool do_seek_to_end);
 
 void usage(void);
 int dprintf(const char *fmt, ...);
