@@ -2,7 +2,7 @@
 
 SUBDIRS = man src config
 
-EXTRA_DIST = LICENSE INSTALL README TODO ChangeLog
+EXTRA_DIST = LICENSE INSTALL README ChangeLog
 
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 configure configuration.h.in \
                        stamp-h.in
