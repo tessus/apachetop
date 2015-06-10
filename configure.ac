@@ -1,6 +1,6 @@
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([apachetop],[0.12.7],[https://github.com/tessus/apachetop/issues])
+AC_INIT([apachetop],[0.15.6],[https://github.com/tessus/apachetop/issues])
 AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR(src/apachetop.cc)
 
