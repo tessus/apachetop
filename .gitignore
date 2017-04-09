@@ -11,3 +11,4 @@ config.status
 *.in
 configure
 aclocal.m4
+config/

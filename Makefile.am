@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = man src config
+AUTOMAKE_OPTIONS = foreign
+SUBDIRS = man src
 
 EXTRA_DIST = LICENSE INSTALL README ChangeLog
 

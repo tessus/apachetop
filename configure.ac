@@ -5,7 +5,6 @@ AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR(src/apachetop.cc)
 
 AC_CONFIG_AUX_DIR(config)
-#AC_CONFIG_MACRO_DIR(m4) # 2.58
 
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE
@@ -27,8 +26,6 @@ AC_ARG_WITH(includes,
 
 
 # Checks for programs.
-#AC_PROG_CC
-#AC_PROG_CPP
 AC_PROG_CXX
 AC_LANG([C++])
 
@@ -49,7 +46,6 @@ AC_SYS_LARGEFILE
 
 # Checks for library functions.
 AC_FUNC_MALLOC
-#AC_FUNC_REALLOC # not in 2.53?
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([inet_aton memset strchr strdup kqueue strerror strstr])
 
@@ -134,5 +130,5 @@ AC_SEARCH_LIBS([readline], [readline],
 #CXXFLAGS="$CXXFLAGS $CPPFLAGS"
 AC_SUBST(CXXFLAGS)
 
-AC_CONFIG_FILES([Makefile man/Makefile src/Makefile config/Makefile])
+AC_CONFIG_FILES([Makefile man/Makefile src/Makefile])
 AC_OUTPUT
