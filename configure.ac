@@ -1,6 +1,33 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_INIT([apachetop],[0.15.6],[https://github.com/tessus/apachetop/issues])
+
+AC_DEFUN([AC_CONFIG_NICE],
+[
+  test -f $1 && mv $1 $1.old
+  rm -f $1.old
+  cat >$1<<EOF
+#! /bin/sh
+#
+# Created by configure
+
+EOF
+
+  for var in CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LIBS CC CXX; do
+    eval val=\$$var
+    if test -n "$val"; then
+      echo "$var='$val' \\" >> $1
+    fi
+  done
+
+  for arg in [$]0 "[$]@"; do
+    echo "'[$]arg' \\" >> $1
+  done
+  echo '"[$]@"' >> $1
+  chmod +x $1
+])
+AC_CONFIG_NICE(config.nice)
+
 AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR(src/apachetop.cc)
 

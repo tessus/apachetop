@@ -12,3 +12,4 @@ config.status
 configure
 aclocal.m4
 config/
+config.nice
