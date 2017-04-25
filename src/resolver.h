@@ -9,14 +9,12 @@ enum resolver_action
 
 class Resolver
 {
-	public:
-	Resolver::Resolver(void);
-	Resolver::~Resolver(void);
+public:
+	Resolver(void);
+	~Resolver(void);
 	int add_request(char *request, enum resolver_action act);
 
-
-
-	private:
+private:
 	adns_state adns;
 
 	struct host_ip_table
