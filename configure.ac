@@ -38,17 +38,17 @@ AM_INIT_AUTOMAKE
 
 # Add non-standard directories to the include path
 AC_ARG_WITH(libraries,
-	[
+    [
   --with-libraries=<path> additional place to look for libraries],
-	[LDFLAGS="$LDFLAGS -L $withval"],
-	,
+    [LDFLAGS="$LDFLAGS -L $withval"],
+    ,
 )
 # Add non-standard includes to the include path
 AC_ARG_WITH(includes,
-	[
+    [
   --with-includes=<path> additional place to look for header files],
-	[CPPFLAGS="$CPPFLAGS -I $withval"],
-	,
+    [CPPFLAGS="$CPPFLAGS -I $withval"],
+    ,
 )
 
 
@@ -59,8 +59,8 @@ AC_LANG([C++])
 # Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS([arpa/inet.h netdb.h netinet/in.h \
-		string.h strings.h sys/socket.h time.h sys/time.h \
-		limits.h sys/param.h])
+        string.h strings.h sys/socket.h time.h sys/time.h \
+        limits.h sys/param.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 #AC_HEADER_STDBOOL # not in 2.53?
@@ -78,55 +78,55 @@ AC_CHECK_FUNCS([inet_aton memset strchr strdup kqueue strerror strstr])
 
 # pcre {{{
 AC_ARG_WITH(pcre,
-	[  --with-pcre=<path>      prefix of pcre installation (eg /usr/local)],
-	[
-		CPPFLAGS="$CPPFLAGS -I $withval/include"
-		LDFLAGS="$LDFLAGS -L $withval/lib"
-	]
+    [  --with-pcre=<path>      prefix of pcre installation (eg /usr/local)],
+    [
+        CPPFLAGS="$CPPFLAGS -I $withval/include"
+        LDFLAGS="$LDFLAGS -L $withval/lib"
+    ]
 )
 
 AC_CHECK_HEADERS(pcre.h,
-	AC_SEARCH_LIBS([pcre_compile], [pcre]) ,
-	AC_MSG_WARN([*** pcre.h not found -- consider using --with-pcre])
+    AC_SEARCH_LIBS([pcre_compile], [pcre]) ,
+    AC_MSG_WARN([*** pcre.h not found -- consider using --with-pcre])
 )
 # }}}
 
 # fam {{{
 AC_ARG_WITH(fam,
-	[  --with-fam=<path>      prefix of fam installation (eg /usr/local)],
-	[
-		CPPFLAGS="$CPPFLAGS -I $withval/include"
-		LDFLAGS="$LDFLAGS -L $withval/lib"
-	]
+    [  --with-fam=<path>      prefix of fam installation (eg /usr/local)],
+    [
+        CPPFLAGS="$CPPFLAGS -I $withval/include"
+        LDFLAGS="$LDFLAGS -L $withval/lib"
+    ]
 )
 
 AC_CHECK_HEADERS(fam.h,
-	AC_SEARCH_LIBS([FAMOpen], [fam]) ,
-	AC_MSG_WARN([*** fam.h not found -- consider using --with-fam])
+    AC_SEARCH_LIBS([FAMOpen], [fam]) ,
+    AC_MSG_WARN([*** fam.h not found -- consider using --with-fam])
 )
 # }}}
 
 # adns {{{
 AC_ARG_WITH(adns,
-	[  --with-adns=<path>     prefix of adns installation (eg /usr/local)],
-	[
-		CPPFLAGS="$CPPFLAGS -I $withval/include"
-		LDFLAGS="$LDFLAGS -L $withval/lib"
-	]
+    [  --with-adns=<path>     prefix of adns installation (eg /usr/local)],
+    [
+        CPPFLAGS="$CPPFLAGS -I $withval/include"
+        LDFLAGS="$LDFLAGS -L $withval/lib"
+    ]
 )
 
 AC_CHECK_HEADERS(adns.h,
-	AC_SEARCH_LIBS([adns_submit], [adns]) ,
-	AC_MSG_WARN([*** adns.h not found -- consider using --with-adns])
+    AC_SEARCH_LIBS([adns_submit], [adns]) ,
+    AC_MSG_WARN([*** adns.h not found -- consider using --with-adns])
 )
 # }}}
 
 # --with-logfile {{{
 AC_ARG_WITH(logfile,
-	[
+    [
   --with-logfile=<log>    location of default logfile],
-	[AC_DEFINE_UNQUOTED(DEFAULT_LOGFILE, "$withval", [Optionally override the DEFAULT_LOGFILE in apachetop.h])],
-	,
+    [AC_DEFINE_UNQUOTED(DEFAULT_LOGFILE, "$withval", [Optionally override the DEFAULT_LOGFILE in apachetop.h])],
+    ,
 )
 # }}}
 
@@ -135,20 +135,20 @@ AC_SEARCH_LIBS([inet_addr], [nsl])
 AC_SEARCH_LIBS([attron], [ncurses])
 AC_SEARCH_LIBS([tgetstr], [termcap])
 AC_SEARCH_LIBS([mvprintw], [curses ncurses] ,
-	[] ,
-	[
-		AC_MSG_ERROR([No useful curses library found!])
-	]
+    [] ,
+    [
+        AC_MSG_ERROR([No useful curses library found!])
+    ]
 )
 
 AC_SEARCH_LIBS([readline], [readline],
-	[
-		AC_DEFINE(HAVE_READLINE,1,[Define if you have readline library])
-		AC_SUBST(HAVE_READLINE)
-	] ,
-	[
-		AC_MSG_ERROR(readline library not found)
-	]
+    [
+        AC_DEFINE(HAVE_READLINE,1,[Define if you have readline library])
+        AC_SUBST(HAVE_READLINE)
+    ] ,
+    [
+        AC_MSG_ERROR(readline library not found)
+    ]
 )
 
 
