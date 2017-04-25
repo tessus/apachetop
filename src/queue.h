@@ -3,7 +3,7 @@
 
 class Node
 {
-	public:
+public:
 	void *x;
 	Node *next;
 
@@ -13,12 +13,12 @@ class Node
 
 class Queue
 {
-	private:
+private:
 	Node *head;
 	Node *tail;
 	int size;
 
-	public:
+public:
 	Queue(void);
 	~Queue(void);
 
