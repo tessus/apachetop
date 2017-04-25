@@ -2,7 +2,7 @@
 
 #include "inlines.cc"
 
-#define RESOLVING_STRING "..."
+#define RESOLVING_STRING (char *)"..."
 #define NO_RESOLVED_INFO "?"
 
 extern map *um, /* urlmap */
@@ -36,7 +36,7 @@ int CommonLogParser::parse(char *logline, struct logbits *b)
 	bufcp = strchr(logline, ' ');
 	if (!bufcp)
 		return -1;
-	
+
 	*bufcp = (char) NULL;
 	++bufcp;
 
@@ -67,7 +67,7 @@ int CommonLogParser::parse(char *logline, struct logbits *b)
 		if (cf.do_resolving)
 		{
 			b->want_ip = true;
-			
+
 			dprintf("lookup %s\n", ptr);
 			/* fire off a query with adns */
 			b->dns_query = new adns_query;
@@ -165,7 +165,7 @@ int CommonLogParser::parse(char *logline, struct logbits *b)
 	if (!(bufsp = strchr(bufcp, '"')))
 	{
 		/* nothing left, its common */
-		
+
 		/* fill in a dummy value for referrer map */
 		b->ref_pos = rm->insert((char *)"Unknown");
 		return 0;
@@ -181,7 +181,7 @@ int CommonLogParser::parse(char *logline, struct logbits *b)
 	/* unless they want to keep it, skip over the protocol, ie http:// */
 	if ((cf.preserve_ref_protocol == 0) && (bufcp = strstr(bufsp, "://")))
 		bufsp = bufcp + 3;
-	
+
 
 	/* we could munge the referrer now; cut down the path elements,
 	 * remove querystring, but we'll leave that for a later date */
@@ -247,7 +247,7 @@ char *LogParser::processURL(char **buf) /* {{{ */
 		return NULL;
 
 	mungeURL(&realstart, &length);
-	
+
 	/* feed back where the end of the URL is */
 	*buf = endptr+2;
 
