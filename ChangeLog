@@ -1,5 +1,12 @@
 ApacheTop ChangeLog
 
+v0.17.4 (25th April, 2017)
+ * create config.nice when running ./configure
+ * fix error: extra qualification on member (when using adns)
+ * fix compiler warnings
+ * fix a potential buffer overflow
+
+
 v0.15.6 (10th June, 2015)
  * allow other time/date formats in Apache log
  * use sys/param.h for MAXPATHLEN
@@ -11,7 +18,7 @@ v0.15.6 (10th June, 2015)
 
 
 v0.12.6 (27th October, 2005)
- * fixed security issue which described at CVE-2005-2660 
+ * fixed security issue which described at CVE-2005-2660
 
 
 v0.12.5 (27th November, 2004)
