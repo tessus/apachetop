@@ -197,8 +197,8 @@ int main(int argc, char *argv[])
 					cf.refresh_delay = x;
 				break;
 
-			case 'h': 
-			case '?': 
+			case 'h':
+			case '?':
 				usage();
 				exit(1);
 				break;
@@ -237,7 +237,7 @@ int main(int argc, char *argv[])
 			hc->create(cf.circle_size);
 			c = hc;
 			break;
-	
+
 		case TIMED_CIRCLE:
 			tc = new Timed_Circle;
 			tc->create(cf.circle_size);
@@ -263,11 +263,11 @@ int main(int argc, char *argv[])
 	rm->create(cf.circle_size);
 
 	/* ip string -> ip hash map */
-	im = new map; 
+	im = new map;
 	im->create(cf.circle_size);
 
 	/* host string -> host hash map */
-	hm = new map; 
+	hm = new map;
 	hm->create(cf.circle_size);
 	/* }}} */
 
@@ -391,7 +391,7 @@ int main(int argc, char *argv[])
 			*/
 			curfile = (struct input *)fe.userdata;
 			fd = curfile->fd;
-			
+
 /* }}} */
 #else /* fallback to stat() {{{ */
 
@@ -414,7 +414,7 @@ int main(int argc, char *argv[])
 				close(fd);
 				curfile->fd = 0;
 				curfile->open = false;
-				
+
 				/* skip rest of loop, we'll try
 				 * to reopen at top of for(;;) */
 				continue;
@@ -443,7 +443,7 @@ int main(int argc, char *argv[])
 			{
 				/* this should only happen if we've had to
 				 * fall back to stat() */
-				continue; 
+				continue;
 			}
 
 			if (buflen < 0) /* error */
@@ -485,7 +485,7 @@ int main(int argc, char *argv[])
 				{
 					/* record which file the log is from */
 					lb.fileid = fd;
-				
+
 					/* insert into circle */
 					c->insert(lb);
 
@@ -584,7 +584,7 @@ int read_key(int ch) /* {{{ */
 			cf.in_submenu = SUBMENU_DISP;
 			cf.in_submenu_time = now;
 			cf.in_submenu_stay = false;
-			
+
 			/* display banner to aid further presses */
 			display_submenu_banner(SUBMENU_DISP_TITLE,
 			    sizeof(SUBMENU_DISP_TITLE), SUBMENU_DISP_BANNER);
@@ -611,7 +611,7 @@ int read_key(int ch) /* {{{ */
 
 			/* don't blat it */
 			cf.display_paused = true;
-			
+
 			display_help();
 
 			break;
@@ -630,13 +630,13 @@ int read_key(int ch) /* {{{ */
 				cf.do_immed_display = true;
 			}
 			break;
-	
+
 		case ' ':
 			cf.do_immed_display = true;
 			break;
 
 #if 0
-		case 's': /* new refresh delay */ 
+		case 's': /* new refresh delay */
 #ifndef SOLARIS /* linking against readline is failing on Solaris atm */
 			endwin();
 			char *t;
@@ -728,7 +728,7 @@ int read_key(int ch) /* {{{ */
 				cf.do_immed_display = true;
 			}
 			break;
-		
+
 		case KEY_REFRESH:
 			refresh();
 			break;
@@ -802,7 +802,7 @@ int read_key(int ch) /* {{{ */
 			case 'i':
 				cf.detail_display_hosts = !cf.detail_display_hosts;
 				break;
-		
+
 		}
 		cf.in_submenu = SUBMENU_NONE;
 		clear_submenu_banner();
@@ -853,13 +853,13 @@ int read_key(int ch) /* {{{ */
 
 			/* don't blat it */
 			cf.display_paused = true;
-			
+
 			/* and render the page; similar to display_help();
 			 * this calls functions in the Filter class to do
 			 * its work */
 			display_active_filters();
 
-			
+
 			break;
 
 	} /* }}} */
@@ -873,7 +873,7 @@ int read_key(int ch) /* {{{ */
 			case 'u': case 'r': case 'h':
 				/* it was */
 				break;
-		
+
 			default:
 				cf.in_submenu = SUBMENU_NONE;
 				cf.in_submenu_stay = false;
@@ -1040,7 +1040,7 @@ int new_file(const char *filename, bool do_seek_to_end) /* {{{ */
 
 void usage(void) /* {{{ */
 {
-	fprintf(stderr, 
+	fprintf(stderr,
 	    "ApacheTop v%s - Usage:\n"
 	    "File options:\n"
 	    "  -f logfile  open logfile (assumed common/combined) [%s]\n"
@@ -1094,7 +1094,7 @@ void usage(void) /* {{{ */
 	            "stat"
 		)
 	    )
-	    
+
 	    );
 
 	return;
@@ -1110,7 +1110,7 @@ int dprintf(const char *fmt, ...) /* {{{ */
       	{
         	strcpy( fileName, "/tmp/atop.XXXXXX" );
         	mkdtemp( fileName );
-        	strncat( fileName, "/debug", sizeof(fileName ) );
+        	strncat( fileName, "/debug", sizeof(fileName) - strlen(fileName) - 1 );
        	}
 
         if (cf.debug && (d = fopen(fileName, "a")))
