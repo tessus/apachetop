@@ -1,26 +1,59 @@
-ApacheTop INSTALL Instructions
++----------------------------------------------------------------------+
+|                  ApacheTop INSTALL Instructions                      |
++----------------------------------------------------------------------+
 
 ApacheTop is now distributed with autoconf files, a nice easy way to build
 distributions whatever platform you're on.
 
-As easy as:
-	cd apachetop-X.X/
-	./configure
-	make
+1) Building ApacheTop from a cloned repository
+2) Building ApacheTop from a tarball
+3) custom configure options
+4) If it fails to build
+
++----------------------------------------------------------------------+
+| 1. Building ApacheTop from a cloned repository                       |
++----------------------------------------------------------------------+
+
+git clone https://github.com/tessus/apachetop.git
+
+cd apachetop
+./autogen.sh                                        (autotools required)
+./configure                                  (see section 3 for details)
+make
+make install                                      (as root or with sudo)
+
++----------------------------------------------------------------------+
+| 2. Building ApacheTop from a tarball                                 |
++----------------------------------------------------------------------+
+
+Download the latest tarball from:
+https://github.com/tessus/apachetop/releases/latest
+
+tar -xzf apachetop-X.Y.Z.tar.gz
+
+cd apachetop-X.Y.Z
+./configure                                  (see section 3 for details)
+make
+make install                                      (as root or with sudo)
+
++----------------------------------------------------------------------+
+| 3. custom configure options                                          |
++----------------------------------------------------------------------+
 
 There's a few custom ./configure options and overrides:
+
 	--with-logfile=<log>	(added in v0.11)
 		You may specify the location of the default logfile
 		to open. This overrides the #define in apachetop.h.
 		Of course, you can just use -f on the apachetop
 		commandline, but if you'll only ever use one log, you
 		can give it to configure and never worry about it again.
-	
+
 	--with-pcre=<path>	(added in v0.11)
 		Specifies where to find the pcre installation in the
 		event it's not in your standard path. configure should look
 		for <path>/include/pcre.h and <path>/lib/libpcre.*
-		
+
 	--with-fam=<path>	(added in v0.12)
 		Specifies where to find the FAM installation. The path you
 		give should contain include/fam.h and lib/libfam.*
@@ -30,13 +63,10 @@ There's a few custom ./configure options and overrides:
 		Specifies where to find an adns installation.
 
 
-You'll find the binary as src/apachetop
++----------------------------------------------------------------------+
+| 4. If it fails to build                                              |
++----------------------------------------------------------------------+
 
-
-
-IF IT FAILS TO BUILD
 Make sure you have the -dev sources for readline and (n)curses. These
 contain files required to build binaries that use these libraries; for
 example on Debian you'll need the libreadline4-dev package installed.
-
-
