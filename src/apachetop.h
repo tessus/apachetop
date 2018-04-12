@@ -278,6 +278,7 @@ int read_key(int ch);
 int new_file(const char *filename, bool do_seek_to_end);
 
 void usage(void);
+void version(void);
 int dprintf(const char *fmt, ...);
 
 static void catchsig(int s);

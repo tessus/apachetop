@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
 #endif
 
 	/* process commandline {{{ */
-	while ((ch = getopt(argc, argv, "f:H:T:hqlrs:pd:")) != -1)
+	while ((ch = getopt(argc, argv, "f:H:T:hvqlrs:pd:")) != -1)
 	{
 		switch(ch)
 		{
@@ -195,6 +195,11 @@ int main(int argc, char *argv[])
 				x = atoi(optarg);
 				if (x > 0)
 					cf.refresh_delay = x;
+				break;
+
+			case 'v':
+				version();
+				exit(0);
 				break;
 
 			case 'h':
@@ -1038,6 +1043,11 @@ int new_file(const char *filename, bool do_seek_to_end) /* {{{ */
 	return 0;
 } /* }}} */
 
+void version(void) /* {{{ */
+{
+	fprintf(stdout, "ApacheTop %s\n", PACKAGE_VERSION);
+} /* }}} */
+
 void usage(void) /* {{{ */
 {
 	fprintf(stderr,
@@ -1060,6 +1070,7 @@ void usage(void) /* {{{ */
 	    "\n"
 	    "  -d secs     refresh delay in seconds [%d]\n"
 	    "\n"
+	    "  -v          show version\n"
 	    "  -h          this help\n"
 	    "\n"
 	    "Compile Options: %cHAVE_KQUEUE %cHAVE_FAM %cENABLE_PCRE\n"
