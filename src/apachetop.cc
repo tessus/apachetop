@@ -510,6 +510,7 @@ int main(int argc, char *argv[])
 
 	} /* for( ;; ) */
 
+	delete cmmp;
 	endwin();
 
 	return 0;
