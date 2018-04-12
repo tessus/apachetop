@@ -1,5 +1,11 @@
 ApacheTop ChangeLog
 
+v0.18.4 (12th April, 2018)
+ * fix for clang6
+ * add better build instructions to INSTALL
+ * add option (-v) to show version
+ * fix minor mem leak (8 bytes per apachetop invocation)
+
 v0.17.4 (25th April, 2017)
  * create config.nice when running ./configure
  * fix error: extra qualification on member (when using adns)
