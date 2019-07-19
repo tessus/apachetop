@@ -36,6 +36,8 @@ AC_CONFIG_AUX_DIR(config)
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE
 
+PKG_PROG_PKG_CONFIG
+
 # Add non-standard directories to the include path
 AC_ARG_WITH(libraries,
     [
@@ -132,14 +134,23 @@ AC_ARG_WITH(logfile,
 
 AC_SEARCH_LIBS([socket], [socket])
 AC_SEARCH_LIBS([inet_addr], [nsl])
-AC_SEARCH_LIBS([attron], [ncurses])
-AC_SEARCH_LIBS([tgetstr], [termcap])
-AC_SEARCH_LIBS([mvprintw], [curses ncurses] ,
-    [] ,
-    [
-        AC_MSG_ERROR([No useful curses library found!])
-    ]
-)
+
+NCURSES_FOUND=no
+PKG_CHECK_MODULES(NCURSES, ncurses, [
+		  LIBS="$LIBS $NCURSES_LIBS"
+		  NCURSES_FOUND=yes
+		 ])
+
+AS_IF([test "x$NCURSES_FOUND" != "xyes"], [
+	AC_SEARCH_LIBS([attron], [ncurses])
+	AC_SEARCH_LIBS([tgetstr], [termcap])
+	AC_SEARCH_LIBS([mvprintw], [curses ncurses] ,
+	    [] ,
+	    [
+	        AC_MSG_ERROR([No useful curses library found!])
+	    ]
+	)
+])
 
 AC_SEARCH_LIBS([readline], [readline],
     [
