@@ -1,6 +1,6 @@
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([apachetop],[0.18.4],[https://github.com/tessus/apachetop/issues])
+AC_INIT([apachetop],[0.19.7],[https://github.com/tessus/apachetop/issues])
 
 AC_DEFUN([AC_CONFIG_NICE],
 [

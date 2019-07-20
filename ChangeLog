@@ -1,7 +1,12 @@
 ApacheTop ChangeLog
 
+v0.19.7 (20th July, 2019)
+ * attempt to find ncurses via pkg-config first (@Polynomial-C)
+ * add .editorconfig for consistent coding style
+
+
 v0.18.4 (12th April, 2018)
- * fix for clang6
+ * fix for clang6 (@gonzalo)
  * add better build instructions to INSTALL
  * add option (-v) to show version
  * fix minor mem leak (8 bytes per apachetop invocation)
