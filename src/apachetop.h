@@ -51,9 +51,10 @@
 # include <netdb.h>
 #endif
 
-#if HAVE_PCRE_H
-# include <pcre.h>
-# include "pcre_cpp_wrapper.h"
+#if HAVE_PCRE2_H
+#define PCRE2_CODE_UNIT_WIDTH 8
+# include <pcre2.h>
+# include "pcre2_cpp_wrapper.h"
 #endif
 
 #include <curses.h>

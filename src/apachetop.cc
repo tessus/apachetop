@@ -1074,7 +1074,7 @@ void usage(void) /* {{{ */
 	    "  -v          show version\n"
 	    "  -h          this help\n"
 	    "\n"
-	    "Compile Options: %cHAVE_KQUEUE %cHAVE_FAM %cENABLE_PCRE\n"
+	    "Compile Options: %cHAVE_KQUEUE %cHAVE_FAM %cENABLE_PCRE2\n"
 	    "Polling Method: %s\n"
 	    ,
 	    PACKAGE_VERSION,
@@ -1096,7 +1096,7 @@ void usage(void) /* {{{ */
 #else
 	    '-',
 #endif /* }}} */
-#if HAVE_PCRE_H /* {{{ */
+#if HAVE_PCRE2_H /* {{{ */
 	    '+',
 #else
 	    '-',

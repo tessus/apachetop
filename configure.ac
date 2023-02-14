@@ -1,6 +1,6 @@
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([apachetop],[0.19.7],[https://github.com/tessus/apachetop/issues])
+AC_INIT([apachetop],[0.23.2],[https://github.com/tessus/apachetop/issues])
 
 AC_DEFUN([AC_CONFIG_NICE],
 [
@@ -78,18 +78,19 @@ AC_FUNC_MALLOC
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([inet_aton memset strchr strdup kqueue strerror strstr])
 
-# pcre {{{
-AC_ARG_WITH(pcre,
-    [  --with-pcre=<path>      prefix of pcre installation (eg /usr/local)],
+# pcre2 {{{
+AC_ARG_WITH(pcre2,
+    [  --with-pcre2=<path>     prefix of pcre2 installation (eg /usr/local)],
     [
         CPPFLAGS="$CPPFLAGS -I $withval/include"
         LDFLAGS="$LDFLAGS -L $withval/lib"
     ]
 )
 
-AC_CHECK_HEADERS(pcre.h,
-    AC_SEARCH_LIBS([pcre_compile], [pcre]) ,
-    AC_MSG_WARN([*** pcre.h not found -- consider using --with-pcre])
+AC_CHECK_HEADERS(pcre2.h,
+    AC_SEARCH_LIBS([pcre2_compile_8], [pcre2-8]) ,
+    AC_MSG_WARN([*** pcre2.h not found -- consider using --with-pcre2]) ,
+    [#define PCRE2_CODE_UNIT_WIDTH 8]
 )
 # }}}
 
@@ -164,7 +165,7 @@ AC_SEARCH_LIBS([readline], [readline],
 
 
 # everything is in CPPFLAGS up to this point, now we move to CXXFLAGS
-# this is mostly done for pcre test, AC_CHECK_HEADERS wants to use CPP
+# this is mostly done for pcre2 test, AC_CHECK_HEADERS wants to use CPP
 #CXXFLAGS="$CXXFLAGS $CPPFLAGS"
 AC_SUBST(CXXFLAGS)
 
