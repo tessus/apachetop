@@ -42,25 +42,25 @@ make install                                      (as root or with sudo)
 
 There's a few custom ./configure options and overrides:
 
-	--with-logfile=<log>	(added in v0.11)
-		You may specify the location of the default logfile
-		to open. This overrides the #define in apachetop.h.
-		Of course, you can just use -f on the apachetop
-		commandline, but if you'll only ever use one log, you
-		can give it to configure and never worry about it again.
+    --with-logfile=<log>                                (added in v0.11)
+        You may specify the location of the default logfile
+        to open. This overrides the #define in apachetop.h.
+        Of course, you can just use -f on the apachetop
+        commandline, but if you'll only ever use one log, you
+        can give it to configure and never worry about it again.
 
-	--with-pcre=<path>	(added in v0.11)
-		Specifies where to find the pcre installation in the
-		event it's not in your standard path. configure should look
-		for <path>/include/pcre.h and <path>/lib/libpcre.*
+    --with-pcre2=<path>                               (added in v0.23.2)
+        Specifies where to find the pcre2 installation in the
+        event it's not in your standard path. configure should look
+        for <path>/include/pcre2.h and <path>/lib/libpcre2.*
 
-	--with-fam=<path>	(added in v0.12)
-		Specifies where to find the FAM installation. The path you
-		give should contain include/fam.h and lib/libfam.*
-		kqueue will be preferred to fam if both are found on the system.
+    --with-fam=<path>                                   (added in v0.12)
+        Specifies where to find the FAM installation. The path you
+        give should contain include/fam.h and lib/libfam.*
+        kqueue will be preferred to fam if both are found on the system.
 
-	--with-pcre=<path>	(added in v0.12)
-		Specifies where to find an adns installation.
+    --with-pcre=<path>                                  (added in v0.12)
+        Specifies where to find an adns installation.
 
 
 +----------------------------------------------------------------------+

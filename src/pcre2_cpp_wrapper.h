@@ -1,4 +1,7 @@
 //
+// Adapted for PCRE2 (c) 2023 Helmut K. C. Tessarek (tessarek@evermeet.cx)
+// removed unnecessary methods (not needed by apachetop)
+//
 // regex.hpp 1.0 Copyright (c) 2003 Peter Petersen (pp@on-time.de)
 // Simple C++ wrapper for PCRE
 //
@@ -71,83 +74,73 @@
 
 #include <string.h>
 
-#ifndef _PCRE_H
-#include "pcre.h"
+#ifndef _PCRE2_H
+#define PCRE2_CODE_UNIT_WIDTH 8
+#include "pcre2.h"
 #endif
 
 class RegEx
 {
-   public:
-      /////////////////////////////////
-      RegEx(const char * regex, int options = 0)
-      {
-         const char * error;
-         int          erroffset;
+	public:
+		/////////////////////////////////
+		RegEx(const char *regex, int options = 0)
+		{
+			int error;
+			PCRE2_SIZE erroroffset;
+			PCRE2_SPTR pattern;
+			PCRE2_SIZE pattern_length;
 
-         re = pcre_compile(regex, options, &error, &erroffset, NULL);
-         if (re == NULL)
-            throw error;
-         pe = pcre_study(re, 0, &error);
-         pcre_fullinfo(re, pe, PCRE_INFO_CAPTURECOUNT, &substrcount);
-         substrcount++;
-         ovector = new int[3*substrcount];
-         matchlist = NULL;
-      };
+			pattern = (PCRE2_SPTR)regex;
+			pattern_length = (PCRE2_SIZE)strlen((char *)regex);
 
-      /////////////////////////////////
-      ~RegEx()
-      {
-         ClearMatchList();
-         delete ovector;
-         if (pe)
-            pcre_free(pe);
-         pcre_free(re);
-      }
+			re = pcre2_compile(pattern, pattern_length, options, &error, &erroroffset, NULL);
+			if (re == NULL)
+			{
+#if PCRE2_WRAPPER_DEBUG
+				PCRE2_UCHAR buffer[256];
+				pcre2_get_error_message(error, buffer, sizeof(buffer));
+				fprintf(stderr, "PCRE2 compilation failed at offset %d: %s\n", (int)erroroffset, buffer);
+#endif
+				throw error;
+			}
+			match_data = pcre2_match_data_create_from_pattern(re, NULL);
+		};
 
-      /////////////////////////////////
-      inline int SubStrings(void) const
-      {
-         return substrcount;
-      }
+		/////////////////////////////////
+		~RegEx()
+		{
+			ClearMatchData();
+			pcre2_code_free(re);
+		}
 
-      /////////////////////////////////
-      bool Search(const char * subject, int len = -1, int options = 0)
-      {
-         ClearMatchList();
-         return pcre_exec(re, pe, lastsubject = subject, slen = (len >= 0) ? len : strlen(subject), 0, options, ovector, 3*substrcount) > 0;
-      }
+		/////////////////////////////////
+		bool Search(const char *text)
+		{
+			int rc = 0;
+			PCRE2_SPTR subject;
+			PCRE2_SIZE subject_length;
 
-      /////////////////////////////////
-      bool SearchAgain(int options = 0)
-      {
-         ClearMatchList();
-         return pcre_exec(re, pe, lastsubject, slen, ovector[1], options, ovector, 3*substrcount) > 0;
-      }
+			subject = (PCRE2_SPTR)text;
+			subject_length = (PCRE2_SIZE)strlen((char *)text);
 
-      /////////////////////////////////
-      const char * Match(int i = 1)
-      {
-         if (i < 0)
-            return lastsubject;
-         if (matchlist == NULL)
-            pcre_get_substring_list(lastsubject, ovector, substrcount, &matchlist);
-         return matchlist[i];
-      }
+			rc = pcre2_match(re, subject, subject_length, 0, 0, match_data, NULL);
+#if PCRE2_WRAPPER_DEBUG
+			fprintf(stderr, "PCRE2 pcre2_match rc: %d\n", rc);
+#endif
+			return rc > 0;
+		}
 
-   private:
-      inline void ClearMatchList(void)
-      {
-         if (matchlist)
-            pcre_free_substring_list(matchlist),
-            matchlist = NULL;
-      }
-      pcre * re;
-      pcre_extra * pe;
-      int substrcount;
-      int * ovector;
-      const char * lastsubject;
-      int slen;
-      const char * * matchlist;
+	private:
+		inline void ClearMatchData(void)
+		{
+			if (match_data)
+			{
+				pcre2_match_data_free(match_data);
+				match_data = NULL;
+			}
+		}
+		pcre2_code *re;
+		pcre2_match_data *match_data;
 };
 
 // Below is a little demo/test program using class RegEx
@@ -160,29 +153,29 @@ class RegEx
 ///////////////////////////////////////
 int main(int argc, char * argv[])
 {
-   if (argc != 2)
-   {
-      fprintf(stderr, "Usage: grep pattern\n\n"
-                      "Reads stdin, searches 'pattern', writes to stdout\n");
-      return 2;
-   }
-   try
-   {
-      RegEx Pattern(argv[1]);
-      int count = 0;
-      char buffer[1024];
+	if (argc != 2)
+	{
+		fprintf(stderr, "Usage: grep pattern\n\n"
+							 "Reads stdin, searches 'pattern', writes to stdout\n");
+		return 2;
+	}
+	try
+	{
+		RegEx Pattern(argv[1]);
+		int count = 0;
+		char buffer[1024];
 
-      while (fgets(buffer, sizeof(buffer), stdin))
-         if (Pattern.Search(buffer))
-            fputs(buffer, stdout),
-            count++;
-      return count == 0;
-   }
-   catch (const char * ErrorMsg)
-   {
-      fprintf(stderr, "error in regex '%s': %s\n", argv[1], ErrorMsg);
-      return 2;
-   }
+		while (fgets(buffer, sizeof(buffer), stdin))
+			if (Pattern.Search(buffer))
+				fputs(buffer, stdout),
+				count++;
+		return count == 0;
+	}
+	catch (const char * ErrorMsg)
+	{
+		fprintf(stderr, "error in regex '%s': %s\n", argv[1], ErrorMsg);
+		return 2;
+	}
 }
 
 #endif // REGEX_DEMO
