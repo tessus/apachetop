@@ -13,7 +13,7 @@ static int primes[] = {101, 241, 499, 1009, 2003, 3001, 4001, 5003,
 
 int OAHash::getNextPrime(int size)
 {
-	register int *prime;
+	int *prime;
 	for (prime = &primes[0] ; *prime ; prime++)
 		if (*prime > size)
 			return *prime;
@@ -51,7 +51,7 @@ void OAHash::destroy(void)
 
 void *OAHash::insert(char *key, void *data)
 {
-	register unsigned int p, i;
+	unsigned int p, i;
 	void *d;
  
 	// Do not exceed the number of positions in the table.
@@ -81,7 +81,7 @@ void *OAHash::insert(char *key, void *data)
 
 int OAHash::remove(char *key)
 {
-	register unsigned int p, i;
+	unsigned int p, i;
 
 	for (i = 0; i < positions; ++i)
 	{
@@ -108,7 +108,7 @@ int OAHash::remove(char *key)
 
 void *OAHash::lookup(char *key)
 {
-	register unsigned int p, i;
+	unsigned int p, i;
 
 	for (i = 0; i < positions; ++i)
 	{
