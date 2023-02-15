@@ -3,6 +3,8 @@ ApacheTop ChangeLog
 v0.23.2 (15th February, 2023)
  * switch to PCRE2, --with-pcre2=<path>
  * fix for c++17 (@thesamesam)
+ * fix a potential seagfault, if regex is not valid
+ * if regex is not valid, treat the input as literal string
 
 
 v0.19.7 (20th July, 2019)
