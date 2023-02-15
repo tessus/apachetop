@@ -13,3 +13,4 @@ configure
 aclocal.m4
 config/
 config.nice
+*.tar.gz*
