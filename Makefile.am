@@ -8,9 +8,10 @@ EXTRA_DIST = LICENSE INSTALL README ChangeLog
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 configure configuration.h.in \
                        stamp-h.in
 
-dist-sign: dist
+dist-sign:
 	gpg -ba $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.gz
 
+.PHONY: dist-all
 dist-all: dist dist-sign
 
 dist-all-clean:
