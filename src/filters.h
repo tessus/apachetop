@@ -4,7 +4,7 @@
 /* Filter class
 **
 ** Each instance has one filter, which is either plaintext or regular
-** expression (if HAVE_PCRE_H_ is defined): Quick example:
+** expression (if HAVE_PCRE2_H is defined): Quick example:
 **
 ** f = new Filter();
 ** f->store("(movies|music)");
@@ -25,9 +25,10 @@ public:
 	void empty(void);
 
 private:
+	bool regex_isvalid;
 	char *filter_text;
 
-#if HAVE_PCRE_H
+#if HAVE_PCRE2_H
 	RegEx *regexp;
 #endif
 

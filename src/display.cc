@@ -68,7 +68,7 @@ bool display(time_t last_display) /* {{{ */
 	 * one particular URL, so we show that URL as it would be in
 	 * DISPLAY_URLS, then split the rest of the screen between IPs
 	 * hitting that URL, and referrers referring to that URL */
-	
+
 	/* first line is the pos of interest */
 	display_list();
 
@@ -178,7 +178,7 @@ void display_header() /* {{{ */
 	secs_offset = gstats.alltime.last % 86400;
 	mvprintw(0, 0, "last hit: %02d:%02d:%02d",
 	  secs_offset / 3600, (secs_offset / 60) % 60, secs_offset % 60);
-	
+
 	/* uptime */
 	diff = (unsigned int)difftime(now, gstats.start);
 	if (diff > 86399) diff -= ((d = diff / 86400)*86400);
@@ -199,7 +199,7 @@ void display_header() /* {{{ */
 	  secs_offset /3600, (secs_offset/ 60) % 60, secs_offset % 60);
 
 
-	//All: 1,140,532 requests (39.45/sec),  999,540,593 bytes (857,235/sec) 
+	//All: 1,140,532 requests (39.45/sec),  999,540,593 bytes (857,235/sec)
 	ftmp = getMAX(now-gstats.alltime.first, 1); /* divide-by-zero hack */
 	bytes = readableNum(gstats.alltime.bytecount, &bytes_suffix);
 	bps = readableNum(gstats.alltime.bytecount/ftmp, &bps_suffix);
@@ -207,7 +207,7 @@ void display_header() /* {{{ */
 	    gstats.alltime.bytecount/getMAX(gstats.alltime.reqcount, 1),
 	    &per_req_suffix);
 	attron(A_BOLD);
-	mvprintw(1, 0, 
+	mvprintw(1, 0,
 	  "All: %12.0f reqs (%6.1f/sec)  %11.1f%c (%7.1f%c/sec)   %7.1f%c/req",
 	  gstats.alltime.reqcount,
 	  gstats.alltime.reqcount/ftmp,
@@ -217,7 +217,7 @@ void display_header() /* {{{ */
 	attroff(A_BOLD);
 
 
-	// 2xx 1,604,104 (95%) 3xx 1,000,000 ( 3%) 4xx 1,000,000 ( 1%) 
+	// 2xx 1,604,104 (95%) 3xx 1,000,000 ( 3%) 4xx 1,000,000 ( 1%)
 	// 5xx 1,000,000 ( 1%)
 	ftmp = gstats.r_codes[2].reqcount + gstats.r_codes[3].reqcount+
 	       gstats.r_codes[4].reqcount + gstats.r_codes[5].reqcount;
@@ -233,7 +233,7 @@ void display_header() /* {{{ */
 	 gstats.r_codes[3].reqcount,
 	 (gstats.r_codes[3].reqcount/ftmp) == 1 ? 0 : 1,
 	 (gstats.r_codes[3].reqcount/ftmp)*100,
-	 
+
 	 gstats.r_codes[4].reqcount,
 	 (gstats.r_codes[4].reqcount/ftmp) == 1 ? 0 : 1,
 	 (gstats.r_codes[4].reqcount/ftmp)*100,
@@ -241,7 +241,7 @@ void display_header() /* {{{ */
 	 gstats.r_codes[5].reqcount,
 	 (gstats.r_codes[5].reqcount/ftmp) == 1 ? 0 : 1,
 	 (gstats.r_codes[5].reqcount/ftmp)*100
-	 
+
 	);
 
 	/* housecleaning on the circle, if its required in this class */
@@ -384,7 +384,7 @@ void display_list() /* {{{ */
 		/* skip unused */
 		if (lb == NULL)
 			continue;
-	
+
 
 		/* set up some pointers, depending on cf.display_mode, so
 		 * that we can refer to the url_pos or ip_pos via just pos,
@@ -431,7 +431,7 @@ void display_list() /* {{{ */
 
 		/* then lookup that string in items */
 		item_ptr = (struct itemlist *)item_hash.lookup(cptmp);
-		
+
 
 		/* do we have this string already? */
 		if (item_ptr == NULL)
@@ -506,7 +506,7 @@ void display_list() /* {{{ */
 		mvaddstr(LINES_RESERVED-1, 0, " REQS REQ/S    KB KB/S");
 		break;
 
-		case NUMBERS_RETCODES:	
+		case NUMBERS_RETCODES:
 		mvaddstr(LINES_RESERVED-1, 0, "  2xx   3xx   4xx  5xx");
 		break;
 	}
@@ -547,7 +547,7 @@ void display_list() /* {{{ */
 		case DISPLAY_URLS:
 		mvaddstr(LINES_RESERVED-1, 23, "URL");
 		break;
-	
+
 		case DISPLAY_HOSTS:
 		mvaddstr(LINES_RESERVED-1, 23, "HOST");
 		break;
@@ -642,7 +642,7 @@ void display_sub_list(short display_mode_override, /* {{{ */
 	//if (items) free(items); /* get rid of the last one */
 	subitems = (struct itemlist *)
 	    calloc((unsigned int)items_size, sizeof(itemlist));
-	
+
 	/* another thread may change the contents of cf while we're running,
 	 * and it would be undesirable to have most of this change on us, so
 	 * we make safe copies to use */
@@ -663,7 +663,7 @@ void display_sub_list(short display_mode_override, /* {{{ */
 		/* skip unused */
 		if (lb == NULL)
 			continue;
-	
+
 		/* FILTERS? */
 
 
@@ -698,7 +698,7 @@ void display_sub_list(short display_mode_override, /* {{{ */
 
 		/* then lookup that string in items */
 		item_ptr = (struct itemlist *)item_hash.lookup(cptmp);
-		
+
 		/* do we have this string already? */
 		if (item_ptr == NULL)
 		{
@@ -775,7 +775,7 @@ void display_sub_list(short display_mode_override, /* {{{ */
 		case DISPLAY_URLS:
 			mvaddstr(LINES_RESERVED+offset-1, 23, "URL");
 			break;
-	
+
 		case DISPLAY_HOSTS:
 			mvaddstr(LINES_RESERVED+offset-1, 23, "HOST");
 			break;
@@ -829,7 +829,7 @@ void drawMarker(void) /* update position of asterisk next to URLs {{{ */
 	/* ensure our marker isn't beyond the end of the list */
 	if (cf.selected_item_screen > cf.current_display_size-1)
 		cf.selected_item_screen = cf.current_display_size-1;
-	
+
 	/* or above the start of it */
 	if (cf.selected_item_screen < 0) cf.selected_item_screen = 0;
 
@@ -841,7 +841,7 @@ void drawMarker(void) /* update position of asterisk next to URLs {{{ */
 
 	/* come to rest under header */
 	move(SUBMENU_LINE_NUMBER, 0);
-	
+
 	refresh();
 } /* }}} */
 
@@ -865,7 +865,7 @@ void show_map_line(struct itemlist *item_ptr, int vert_location, /* {{{ */
 		    /* scale KB display; if >1000K lose the decimal point */
 		    ((item_ptr->bytecount > (999*1024)) ? 0 : 1),
 		    ((float)item_ptr->bytecount/1024),
-		    
+
 		    /* scale KB/s display; if >1000K/s lose the decimal point */
 		    ((item_ptr->kbps > 99) ? 0 : 1),
 		    item_ptr->kbps);
@@ -945,7 +945,7 @@ void shellsort_wrapper(struct itemlist *items, unsigned int size, /* {{{ */
 		case NUMBERS_HITS_BYTES:
 			sort_method = pcf.sort;
 			break;
-		
+
 		/* sorting by a return code */
 		case NUMBERS_RETCODES:
 			sort_method = pcf.retcodes_sort;
@@ -1010,7 +1010,7 @@ void shellsort(struct itemlist *items, unsigned int size, int sorttype) /* {{{ *
 					i_c = items[i].r_codes[x].reqcount;
 					j_c = items[j].r_codes[x].reqcount;
 				}
-				
+
 				if (i_c > j_c)
 				{
 #define P_S_S sizeof(struct itemlist)
@@ -1046,7 +1046,7 @@ float readableNum(double num, char *suffix) /* {{{ */
 		*suffix = 'K';
 		return (float)num/1024;
 	}
-	
+
 	*suffix = 'B';
 	return (float)num;
 } /* }}} */
@@ -1074,10 +1074,13 @@ void display_help(void)
 	clear();
 
 	move(0, 0);
-	printw("ApacheTop version %s, Copyright (c) 2003-2004, Chris Elsworth",
-	    PACKAGE_VERSION);
-	
-	move(2, 0);
+	printw("ApacheTop version %s", PACKAGE_VERSION);
+	move(0, 27);
+	addstr("Copyright (c) 2003-2011 Chris Elsworth");
+	move(1, 27);
+	addstr("Copyright (c) 2015-     Helmut K. C. Tessarek");
+
+	move(3, 0);
 	addstr("ONE-TOUCH COMMANDS\n");
 	addstr("d          : switch item display between urls/referrers/hosts\n");
 	addstr("n          : switch numbers display between hits & bytes or return codes\n");
@@ -1206,7 +1209,7 @@ void display_histogram()
 	horiz_line[hist_width] = '\0';
 	mvprintw(HISTOGRAM_START + hist_height, 2, "0+%*s",
 	    hist_width, horiz_line);
-	
+
 	mvprintw(HISTOGRAM_START + hist_height+1, 4, "NOW");
 	mvprintw(HISTOGRAM_START + hist_height+1, hist_width+3, "-%ds",
 	    now - c->oldest());
