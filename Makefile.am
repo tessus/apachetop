@@ -12,3 +12,7 @@ dist-sign: dist
 	gpg -ba $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.gz
 
 dist-all: dist dist-sign
+
+dist-all-clean:
+	rm -f $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.gz
+	rm -f $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.gz.asc
