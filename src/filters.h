@@ -25,10 +25,10 @@ public:
 	void empty(void);
 
 private:
-	bool regex_isvalid;
 	char *filter_text;
 
 #if HAVE_PCRE2_H
+	bool regex_isvalid;
 	RegEx *regexp;
 #endif
 
