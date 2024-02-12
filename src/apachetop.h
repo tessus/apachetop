@@ -1,6 +1,8 @@
 #ifndef _APACHETOP_H_
 #define _APACHETOP_H_
 
+#define HAVE_FILE_MODE_DISPLAY 1
+
 #if HAVE_CONFIG_H
 # include "config.h"
 #endif
@@ -268,7 +270,7 @@ struct gstat {
 #define COLS_RESERVED 25
 #define LINES_RESERVED 7
 
-#define MAX_INPUT_FILES 50
+#define MAX_INPUT_FILES 2000
 
 int recordstats(struct logbits l);
 
