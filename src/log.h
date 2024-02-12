@@ -36,6 +36,7 @@ struct logbits {
 
 	int fileid;               /* which file descriptor we're from */
 	int file_pos;             /* location of file in filemap */
+	int file_hash;            /* hash of file string */
 
 	unsigned short retcode;   /* return code */
 	unsigned int bytes;       /* body of result page */

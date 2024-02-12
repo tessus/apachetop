@@ -157,6 +157,36 @@ bool display(time_t last_display) /* {{{ */
 				cur_offset += size + 1;
 			}
 			break;
+
+		case DISPLAY_FILES:
+			/* show URLs and IPs */
+			num_sections =
+			    (cf.detail_display_urls ? 1 : 0) +
+			    (cf.detail_display_hosts ? 1 : 0) +
+			    (cf.detail_display_refs ? 1 : 0);
+
+			/* anything to do? */
+			if (num_sections == 0) break;
+
+			size = (((LINES-LINES_RESERVED-2) - FIRST_OFFSET) /
+			    num_sections);
+
+			if (cf.detail_display_urls)
+			{
+				display_sub_list(DISPLAY_URLS,cur_offset,size);
+				cur_offset += size + 1;
+			}
+			if (cf.detail_display_hosts)
+			{
+				display_sub_list(DISPLAY_HOSTS,cur_offset,size);
+				cur_offset += size + 1;
+			}
+			if (cf.detail_display_refs)
+			{
+				display_sub_list(DISPLAY_REFS,cur_offset,size);
+				cur_offset += size + 1;
+			}
+			break;
 	}
 	refresh();
 
@@ -555,6 +585,10 @@ void display_list() /* {{{ */
 		case DISPLAY_REFS:
 		mvaddstr(LINES_RESERVED-1, 23, "REFERRER");
 		break;
+
+		case DISPLAY_FILES:
+		mvaddstr(LINES_RESERVED-1, 23, "FILE");
+		break;
 	}
 
 	disp = 0; /* count how many we've shown */
@@ -655,6 +689,7 @@ void display_sub_list(short display_mode_override, /* {{{ */
 		case DISPLAY_URLS: map = um; break;
 		case DISPLAY_HOSTS: map = hm; break;
 		case DISPLAY_REFS: map = rm; break;
+		case DISPLAY_FILES: map = fm; break;
 	}
 
 	/* walk the entire circle */
@@ -677,6 +712,7 @@ void display_sub_list(short display_mode_override, /* {{{ */
 			case DISPLAY_URLS: h = lb->url_hash; break;
 			case DISPLAY_HOSTS: h = lb->host_hash; break;
 			case DISPLAY_REFS: h = lb->ref_hash; break;
+			case DISPLAY_FILES: h = lb->file_hash; break;
 		}
 
 		/* we're only interested in this circle item if it matches
@@ -691,6 +727,7 @@ void display_sub_list(short display_mode_override, /* {{{ */
 			case DISPLAY_URLS: pos = lb->url_pos; break;
 			case DISPLAY_HOSTS: pos = lb->host_pos; break;
 			case DISPLAY_REFS: pos = lb->ref_pos; break;
+			case DISPLAY_FILES: pos = lb->file_pos; break;
 		}
 
 		/* look up whatever string this pos is for */
@@ -782,6 +819,10 @@ void display_sub_list(short display_mode_override, /* {{{ */
 
 		case DISPLAY_REFS:
 			mvaddstr(LINES_RESERVED+offset-1, 23, "REFERRER");
+			break;
+
+		case DISPLAY_FILES:
+			mvaddstr(LINES_RESERVED+offset-1, 23, "FILE");
 			break;
 	}
 

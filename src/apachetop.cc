@@ -4,6 +4,8 @@
 */
 #include "apachetop.h"
 
+#include "inlines.cc"
+
 /* die and report why */
 #define DIE(msg) fprintf(stderr, "%s: %s\n", msg, strerror(errno)); catchsig(1);
 /* die with no strerror */
@@ -276,6 +278,10 @@ int main(int argc, char *argv[])
 	hm->create(cf.circle_size);
 	/* }}} */
 
+	/* file string -> file hash map */
+	fm = new map;
+	fm->create(cf.circle_size);
+
 	memset(&gstats, 0, sizeof(gstats));
 	gstats.start = time(NULL);
 
@@ -491,6 +497,10 @@ int main(int argc, char *argv[])
 					/* record which file the log is from */
 					lb.fileid = fd;
 
+					char* filename = basename(curfile->filename);
+					lb.file_pos  = fm->insert(filename);
+					lb.file_hash = TTHash(filename);
+
 					/* insert into circle */
 					c->insert(lb);
 
@@ -664,9 +674,18 @@ int read_key(int ch) /* {{{ */
 				case DISPLAY_HOSTS:
 					cf.display_mode = DISPLAY_REFS;
 					break;
+#if HAVE_FILE_MODE_DISPLAY
+				case DISPLAY_REFS:
+					cf.display_mode = DISPLAY_FILES;
+					break;
+				case DISPLAY_FILES:
+					cf.display_mode = DISPLAY_URLS;
+					break;
+#else
 				case DISPLAY_REFS:
 					cf.display_mode = DISPLAY_URLS;
 					break;
+#endif
 			}
 			cf.do_immed_display = true;
 			break;
